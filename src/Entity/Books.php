@@ -47,6 +47,12 @@ class Books
      */
     private $getBackAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class Books
     public function setGetBackAt(?\DateTimeInterface $getBackAt): self
     {
         $this->getBackAt = $getBackAt;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categories
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categories $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
