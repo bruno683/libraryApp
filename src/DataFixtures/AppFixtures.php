@@ -7,6 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
 class AppFixtures extends Fixture
 {
     private $passwordHasher;
@@ -16,6 +17,12 @@ class AppFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * Créé un employé
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager )
     {
 
@@ -27,7 +34,9 @@ class AppFixtures extends Fixture
                 ->setPassword($this->passwordHasher->hashPassword(
                     $employee,
                     'Admin72'
-                ));
+                ))
+                ->setPostalAdress('14 Rue de la bouquinerie 71570 Guinchay La Chapelle-Curreaux ')
+                ->setDateOfBirth(new \DateTime('10/01/1972'));
         
         $manager->persist($employee);
 
