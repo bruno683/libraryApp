@@ -53,10 +53,6 @@ class Books
      */
     private $categorie;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Catalogue::class, inversedBy="bookList")
-     */
-    private $catalogue;
 
     /**
      * @ORM\ManyToOne(targetEntity=CoverImg::class, inversedBy="book")
@@ -154,18 +150,6 @@ class Books
     public function setCategorie(?Categories $categorie): self
     {
         $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    public function getCatalogue(): ?Catalogue
-    {
-        return $this->catalogue;
-    }
-
-    public function setCatalogue(?Catalogue $catalogue): self
-    {
-        $this->catalogue = $catalogue;
 
         return $this;
     }
