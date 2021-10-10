@@ -58,6 +58,12 @@ class Books
      */
     private $catalogue;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CoverImg::class, inversedBy="book")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $img;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +161,18 @@ class Books
     public function setCatalogue(?Catalogue $catalogue): self
     {
         $this->catalogue = $catalogue;
+
+        return $this;
+    }
+
+    public function getImg(): ?CoverImg
+    {
+        return $this->img;
+    }
+
+    public function setImg(?CoverImg $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
