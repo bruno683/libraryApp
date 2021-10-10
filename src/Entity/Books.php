@@ -64,7 +64,7 @@ class Books
     private $getBackLimit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="books")
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="books", cascade={"persist"})
      */
     private $img;
 
