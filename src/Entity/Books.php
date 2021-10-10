@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BooksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +62,16 @@ class Books
      * @ORM\Column(type="datetime")
      */
     private $getBackLimit;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="books")
+     */
+    private $img;
+
+    public function __construct()
+    {
+        $this->img = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -159,6 +171,36 @@ class Books
     public function setGetBackLimit(\DateTimeInterface $getBackLimit): self
     {
         $this->getBackLimit = $getBackLimit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImg(): Collection
+    {
+        return $this->img;
+    }
+
+    public function addImg(Images $img): self
+    {
+        if (!$this->img->contains($img)) {
+            $this->img[] = $img;
+            $img->setBooks($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImg(Images $img): self
+    {
+        if ($this->img->removeElement($img)) {
+            // set the owning side to null (unless already changed)
+            if ($img->getBooks() === $this) {
+                $img->setBooks(null);
+            }
+        }
 
         return $this;
     }
