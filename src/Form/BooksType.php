@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Books;
+use App\Entity\Categories;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -40,8 +42,11 @@ class BooksType extends AbstractType
                 'label'=>'Remis le:',
                 'widget'=>'choice'
             ])
-            ->add('categorie')
-            ->add('catalogue')
+            ->add('categorie', EntityType::class, [
+                'class'=> Categories::class,
+                'choice_label'=>'name'
+            ]
+            )
             ->add('img', FileType::class, [
                 'label'=>false,
                 'required'=>true,
