@@ -54,11 +54,7 @@ class Books
     private $categorie;
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity=CoverImg::class, inversedBy="book")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $img;
+    
 
     /**
      * @ORM\Column(type="datetime")
@@ -154,17 +150,6 @@ class Books
         return $this;
     }
 
-    public function getImg(): ?CoverImg
-    {
-        return $this->img;
-    }
-
-    public function setImg(?CoverImg $img): self
-    {
-        $this->img = $img;
-
-        return $this;
-    }
 
     public function getGetBackLimit(): ?\DateTimeInterface
     {
