@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Entity\Images;
 use App\Form\BooksType;
 use App\Repository\BooksRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +39,9 @@ class BooksController extends AbstractController
                     $this->getParameter('images_directory'), 
                     $fichier
                 );
+                $img = new Images();
+                $img->setName($fichier);
+                $book->addImg($img);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -69,6 +72,21 @@ class BooksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('img')->getData();
+
+            foreach ($images as $image) {
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                $image->move( 
+                    $this->getParameter('images_directory'), 
+                    $fichier
+                );
+                $img = new Images();
+                $img->setName($fichier);
+                $book->addImg($img);
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('books_index', [], Response::HTTP_SEE_OTHER);

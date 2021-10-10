@@ -42,6 +42,10 @@ class BooksType extends AbstractType
                 'label'=>'Remis le:',
                 'widget'=>'choice'
             ])
+            ->add('getBackLimit', DateType::class, [
+                'label' => 'Date limite de retour :',
+                'widget'=>'choice'
+            ])
             ->add('categorie', EntityType::class, [
                 'class'=> Categories::class,
                 'choice_label'=>'name'
@@ -50,6 +54,7 @@ class BooksType extends AbstractType
             ->add('img', FileType::class, [
                 'label'=>false,
                 'required'=>true,
+                'mapped'=> false,
                 'multiple'=>true
             ])
         ;

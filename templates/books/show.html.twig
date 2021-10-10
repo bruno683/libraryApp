@@ -24,6 +24,14 @@
                 <td>{{ book.author }}</td>
             </tr>
             <tr>
+                <th>Couverture</th>
+                <td>
+                    {% for image in book.img %}
+                     <img src="{{ asset( '/uploads/' ~ image.name) }}" alt="couverture du livre" >
+                    {% endfor %}   
+                </td>
+            </tr>
+            <tr>
                 <th>IsAvailable</th>
                 <td>{{ book.isAvailable ? 'Yes' : 'No' }}</td>
             </tr>
