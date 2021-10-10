@@ -64,6 +64,11 @@ class Books
      */
     private $img;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $getBackLimit;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,18 @@ class Books
     public function setImg(?CoverImg $img): self
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function getGetBackLimit(): ?\DateTimeInterface
+    {
+        return $this->getBackLimit;
+    }
+
+    public function setGetBackLimit(\DateTimeInterface $getBackLimit): self
+    {
+        $this->getBackLimit = $getBackLimit;
 
         return $this;
     }
