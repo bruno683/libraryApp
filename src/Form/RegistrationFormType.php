@@ -33,7 +33,6 @@ class RegistrationFormType extends AbstractType
                 'widget' => 'choice',
                 'format' => 'y-M-d'
             ])
-
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
