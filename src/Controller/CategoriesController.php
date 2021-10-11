@@ -16,6 +16,7 @@ class CategoriesController extends AbstractController
     #[Route('/', name: 'categories_index', methods: ['GET'])]
     public function index(CategoriesRepository $categoriesRepository): Response
     {
+        
         return $this->render('categories/index.html.twig', [
             'categories' => $categoriesRepository->findAll(),
         ]);
@@ -25,6 +26,7 @@ class CategoriesController extends AbstractController
     public function new(Request $request): Response
     {
         $category = new Categories();
+    
         $form = $this->createForm(CategoriesType::class, $category);
         $form->handleRequest($request);
 
@@ -45,8 +47,10 @@ class CategoriesController extends AbstractController
     #[Route('/{id}', name: 'categories_show', methods: ['GET'])]
     public function show(Categories $category): Response
     {
+        $books = $category->getBooks();
         return $this->render('categories/show.html.twig', [
             'category' => $category,
+            'books' => $books,
         ]);
     }
 
