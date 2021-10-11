@@ -30,8 +30,9 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('dateOfBirth', DateType::class, [
                 'label'=> 'Date de naissance :',
-                'widget' => 'choice',
-                'format' => 'y-M-d'
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
             ])
             ->add('email')
             
