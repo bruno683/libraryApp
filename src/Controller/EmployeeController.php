@@ -32,6 +32,7 @@ class EmployeeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(['ROLE_REGISTERED']);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('app_employee', [], Response::HTTP_SEE_OTHER);

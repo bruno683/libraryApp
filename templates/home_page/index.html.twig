@@ -4,8 +4,8 @@
 
 {% block body %}
     
-    
-    <h1>{{title}}</h1> 
+    {% if is_granted('ROLE_REGISTERED') or is_granted('ROLE_EMPLOYEE') %}
+        <h1>{{title}}</h1> 
     <div class="container-lg d-inline-flex w-50 row" data-aos= "fade-left">
         <div class="col-xs-8 col-md-12 py-2 ">
             {% for book in books %} 
@@ -29,4 +29,38 @@
         </div>
         
     </div>
+    {% else %}
+        <div class="container-lg m-auto w-90">
+            <h1>Bienvenue sur le site de la médiathèque</h1>
+            <p>Afin de pouvoir profiter de notre collection dés aujourd'hui, nous vous invitons à créer un compte</p>
+            <hr>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{ asset( '/uploads/carrousel/book-g46354ec0c_1280.jpg') }}" class="d-block w-100" alt="photo de livre">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{ asset( '/uploads/carrousel/books-g6ee9d1e0d_1280.jpg') }}" class="d-block w-100" alt="phot de bouquins">
+                  </div>
+                  <div class="carousel-item">
+                    <img src=" {{ asset( '/uploads/carrousel/literature-g65ef8240c_1280.jpg')}} " class="d-block w-100" alt="tasse sur livres">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+    {% endif %}
+    
 {% endblock %}

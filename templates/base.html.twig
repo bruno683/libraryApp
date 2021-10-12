@@ -44,7 +44,7 @@
                       </li>
                     </ul>
                   </div>
-                  {% if is_granted('ROLE_EMPLOYEE') %}
+                  {% if is_granted('ROLE_USER') %}
                         <a class="nav-link" href=" {{path('app_logout')}}"><button class="btn btn-warning">Déconnexion</button></a>
                         
                       {% else %}
@@ -55,9 +55,14 @@
             </div>
           </nav>
         <div class="container">
-          {% if app.user %}
+          {% if app.user and  app.user.isValid %}
             <p>Félicitations {{app.user.firstName}}, vous êtes connecté ! </p>
+          {% elseif app.user and not app.user.isValid %}
+                <div class="alert alert-danger">Votre compte n'à pas été activé par nos employés. Vous ne pouvez pas vous connecter <br> 
+                  <a href=" {{ path('app_logout')}} ">Je comprends</a>
+                </div>
           {% endif %}
+          
             {% block body %}{% endblock %}
         </div>
         <footer>
