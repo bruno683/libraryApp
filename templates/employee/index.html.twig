@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block body %}
+    <h1>Liste des utilisateurs en attentes de validation</h1>
+    <ul>
+        {% for user in users %}
+            {% if not user.isValid %}
+               <li>{{user.lastname}} - <a href="{{ path('user_show', {'id': user.id}) }}">show</a> - <a href="{{ path('app_valid', {'id': user.id}) }}">edit</a> </li> 
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
+    
+{% endblock %}
