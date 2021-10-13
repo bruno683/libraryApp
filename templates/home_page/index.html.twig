@@ -7,9 +7,9 @@
     {% if is_granted('ROLE_REGISTERED') or is_granted('ROLE_EMPLOYEE') %}
         <h1>{{title}}</h1> 
     <div class="container d-inline-flex w-100 row" >
-        <div class="col-xs-8 col-md-12 py-2  row d-flex flex-wrap">
+        <div class="col-xs-12 col-md-12 py-2  row d-flex flex-wrap">
             {% for book in books %} 
-              <div class="card shadow-lg col-md-5 m-2 bg-body  d-flex ">
+              <div class="card shadow-lg col-xs-5 col-md-5 m-2 bg-body  d-flex ">
                   <div class="card-image  ">
                   {% for image in book.img %}
                       <img src="{{ asset( '/uploads/' ~ image.name) }}" alt="couverture du livre" width="100" height="133" >
@@ -31,8 +31,14 @@
                           {% endif %}
                       </div>
                       <div class=" d-flex justify-content-between">
-                        <a href="{{ path('books_show', {'id' : book.id}) }}"><button class="btn btn-success m-2">Voir le livre</button></a> 
-                        <a href="{{ path('books_rent', {'id' : book.id}) }}"><button class="btn btn-primary m-2">Emprunter le livre</button></a> 
+                          <a href="{{ path('books_show', {'id' : book.id}) }}"><button class="btn btn-success m-2">Voir le livre</button></a> 
+                        {% if book.isavailable %}
+                          <a href="{{ path('books_rent', {'id' : book.id}) }}"><button class="btn btn-primary m-2">Emprunter le livre</button></a>
+                        {% endif %}  
+                        {% if not book.isavailable and is_granted('ROLE_EMPLOYEE') %}
+                        <a href="{{ path('books_return', {'id' : book.id}) }}"><button class="btn btn-success m-2">rendre le livre disponible</button></a>
+                          
+                        {% endif %}                       
                       </div>
                     </div>
                   </div>

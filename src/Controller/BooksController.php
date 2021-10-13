@@ -6,6 +6,7 @@ use App\Entity\Books;
 use App\Entity\Images;
 use App\Form\BooksType;
 use App\Form\RentBookType;
+use App\Form\ReturnBookType;
 use App\Repository\BooksRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -130,9 +131,32 @@ class BooksController extends AbstractController
             return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('rent/rentBook.html.twig', [
+        return $this->render('rent/rentBooks.html.twig', [
             'books'=> $books,
             'form' => $form->createView()
+        ]);
+    }
+
+
+    #[Route('/{id}/returnback', name: 'books_return', methods: ['GET','POST'])]
+    public function returnBook(Request $request, Books $books)
+    {
+        $form = $this->createForm(ReturnBookType::class, $books);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $books->setIsAvailable(true)
+                ->setGetBackAt(new DateTime())
+                ->setGetBackLimit(new DateTime(null))
+                ->setUser($user);
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('rent/returnBack.html.twig', [
+            'form'=> $form->createView(),
+            'books'=> $books
         ]);
     }
 }
