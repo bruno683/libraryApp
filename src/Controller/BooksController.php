@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Books;
 use App\Entity\Images;
 use App\Form\BooksType;
+use App\Form\RentBookType;
 use App\Repository\BooksRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,5 +111,28 @@ class BooksController extends AbstractController
         }
 
         return $this->redirectToRoute('books_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/rent', name: 'books_rent', methods: ['GET','POST'])]
+    public function rentABook(Request $request, Books $books )
+    {
+        
+        $form = $this->createForm(RentBookType::class, $books);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $books->setIsAvailable(false)
+                ->setGetAt(new DateTime())
+                ->setGetBackLimit(new DateTime("3 weeks"))
+                ->setUser($user);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('rent/rentBook.html.twig', [
+            'books'=> $books,
+            'form' => $form->createView()
+        ]);
     }
 }
