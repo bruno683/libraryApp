@@ -17,7 +17,7 @@ class BooksController extends AbstractController
     #[Route('/', name: 'books_index', methods: ['GET'])]
     public function index(BooksRepository $booksRepository): Response
     {
-      
+        
         return $this->render('books/index.html.twig', [
             'books' => $booksRepository->findAll(),
         ]);
