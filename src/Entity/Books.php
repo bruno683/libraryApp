@@ -68,10 +68,7 @@ class Books
      */
     private $img;
 
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="books")
-     */
-    private $rentBy;
+    
 
     public function __construct()
     {
@@ -210,34 +207,5 @@ class Books
 
         return $this;
     }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getRentBy(): Collection
-    {
-        return $this->rentBy;
-    }
-
-    public function addRentBy(User $rentBy): self
-    {
-        if (!$this->rentBy->contains($rentBy)) {
-            $this->rentBy[] = $rentBy;
-            $rentBy->setBooks($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRentBy(User $rentBy): self
-    {
-        if ($this->rentBy->removeElement($rentBy)) {
-            // set the owning side to null (unless already changed)
-            if ($rentBy->getBooks() === $this) {
-                $rentBy->setBooks(null);
-            }
-        }
-
-        return $this;
-    }
+  
 }

@@ -62,10 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isValid;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Books::class, inversedBy="rentBy")
-     */
-    private $books;
+   
 
     public function getId(): ?int
     {
@@ -216,15 +213,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBooks(): ?Books
-    {
-        return $this->books;
-    }
-
-    public function setBooks(?Books $books): self
-    {
-        $this->books = $books;
-
-        return $this;
-    }
+   
 }

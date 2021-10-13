@@ -22,12 +22,14 @@ class BooksRepository extends ServiceEntityRepository
     // /**
     //  * @return Books[] Returns an array of Books objects
     //  */
+  
+    
     /*
-    public function findByExampleField($value)
+    public function findByRent($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.rent = :rentBy')
+            ->setParameter('rentBy', $rentBy)
             ->orderBy('b.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
@@ -35,6 +37,8 @@ class BooksRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    
 
     /*
     public function findOneBySomeField($value): ?Books
