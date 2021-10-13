@@ -6,10 +6,10 @@
     
     {% if is_granted('ROLE_REGISTERED') or is_granted('ROLE_EMPLOYEE') %}
         <h1>{{title}}</h1> 
-    <div class="container-lg d-inline-flex w-50 row" data-aos= "fade-left">
-        <div class="col-xs-8 col-md-12 py-2 ">
+    <div class="container d-inline-flex w-100 row" data-aos= "fade-left">
+        <div class="col-xs-12 col-md-12 py-2 ">
             {% for book in books %} 
-              <div class="card shadow-lg p-3 mb-5 bg-body rounded d-inline-flex m-4 w-100">
+              <div class="card shadow-lg p-3 mb-5 bg-body rounded d-inline-flex mb-2 w-100">
                   <div class="card-image  ">
                   {% for image in book.img %}
                       <img src="{{ asset( '/uploads/' ~ image.name) }}" alt="couverture du livre" width="100" height="133" >
