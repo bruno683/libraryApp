@@ -68,6 +68,11 @@ class Books
      */
     private $img;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books")
+     */
+    private $user;
+
     
 
     public function __construct()
@@ -204,6 +209,18 @@ class Books
                 $img->setBooks(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
