@@ -3,10 +3,11 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
-
-    <table class="table">
-        <thead>
+    <h1>Liste des utilisateurs</h1>
+<div class="container">
+    <div class="row">
+        <table class="table">
+        <thead class="table-dark">
             <tr>
                 <th>Id</th>
                 <th>Email</th>
@@ -25,15 +26,17 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.postalAdress }}</td>
                 <td>{{ user.dateOfBirth ? user.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.isValid ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
-                    <a href="{{ path('app_valid', {'id': user.id}) }}">Valider le compte</a>
+                <td class=" d-flex flex-no-wrap justify-content-around">
+                    <a class="m-2" href="{{ path('user_show', {'id': user.id}) }}"><button class="btn btn-success">Voir</button></a> 
+                    {% if not user.isValid %}
+                    <a class="m-2" href="{{ path('app_valid', {'id': user.id}) }}"><button class="btn btn-primary">Valider</button></a>
+                    {% endif %}
+                    
                 </td>
             </tr>
         {% else %}
@@ -43,6 +46,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
+    </div>
+</div>
+    
 {% endblock %}

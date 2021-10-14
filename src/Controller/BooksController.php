@@ -30,14 +30,21 @@ class BooksController extends AbstractController
     #[Route('/rentedbooks', name: 'books_rented', methods: ['GET'])]
     public function rentedBooksList(BooksRepository $booksRepo): Response
     {
-        $rentedBooks = $booksRepo->findBy(
+        $unconfirmedBooks = $booksRepo->findBy(
             [
                 'isAvailable' => false,
                 'takeBook' => false
             ]
+        
             );
+            $rentedBooks = $booksRepo->findBy([
+                'isAvailable' => false,
+                'takeBook' => true
+                
+            ]);
             return $this->render('books/rented.html.twig', [
-               'rentedBooks' => $rentedBooks
+               'rentedBooks' => $unconfirmedBooks,
+               'booksToReturn' => $rentedBooks
             ]);
     }
 
@@ -139,6 +146,7 @@ class BooksController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $books->setIsAvailable(false)
+                ->setTakeBook(false)
                 ->setGetAt(new DateTime())
                 ->setGetBackLimit( new DateTime('3 days'))
                 ->setUser($user);
@@ -162,13 +170,13 @@ class BooksController extends AbstractController
     {
         $form = $this->createForm(ReturnBookType::class, $books);
         $form->handleRequest($request);
-        $user = $this->getUser();
-
+      
         if ($form->isSubmitted() && $form->isValid()){
             $books->setIsAvailable(true)
+                ->setTakeBook(false)
                 ->setGetBackAt(new DateTime())
                 ->setGetBackLimit(new DateTime(null))
-                ->setUser($user);
+                ->getUser();
 
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
@@ -184,13 +192,17 @@ class BooksController extends AbstractController
     {        
          $form = $this->createForm(TakeBookType::class, $books);
          $form->handleRequest($request);
-         $user = $this->getUser();
+         
+         
+     
 
          if ($form->isSubmitted() && $form->isValid()) {
              if ( $books->getTakeBook()) {
                  $books->setGetBackAt(new DateTime())
+                 ->setGetBackAt(new DateTime(null))
                  ->setGetBackLimit(new DateTime('3 weeks'))
-                 ->setUser($user);
+                 ->setTakeBook(true)
+                 ->getUser();                
              }
 
              $this->getDoctrine()->getManager()->flush();
@@ -201,7 +213,5 @@ class BooksController extends AbstractController
              'form'=> $form->createView(),
              'books'=> $books
          ]);
-
-         
     }
 }

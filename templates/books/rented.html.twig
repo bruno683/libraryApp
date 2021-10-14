@@ -5,11 +5,17 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-8 col-lg-12">
+            
             <ul>
                 {%  for book in rentedBooks %}
-                <li>{{book.title}}. Réservé le {{ book.getAt|date("m/d/Y") }}, à retirer avant le {{book.getbacklimit|date("m/d/Y") }} </li>
+                <li>{{book.title}}. Réservé le {{ book.getAt|date("m/d/Y") }} par {{ book.user.lastName}} {{ book.user.firstName }} , à retirer avant le {{book.getbacklimit|date("m/d/Y") }} <a href="{{ path('books_confirm', {'id': book.id}) }}"><button class="btn btn-primary">Confirmer le retrait</button></a></li>
+                {% endfor %}
+
+                {% for book in booksToReturn %}
+                {{book.title}}. Retirer le {{ book.getAt|date("m/d/Y") }} par {{ book.user.lastName}} {{ book.user.firstName }} , à rendre avant le {{book.getbacklimit|date("m/d/Y") }}
                 {% endfor %}
             </ul>
+            {# {{book.title}}. Retirer le {{ book.getAt|date("m/d/Y") }} par {{ book.user.lastName}} {{ book.user.firstName }} , à rendre avant le {{book.getbacklimit|date("m/d/Y") }}#}
         </div>
     </div>
 </div>
