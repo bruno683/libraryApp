@@ -73,6 +73,11 @@ class Books
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $takeBook;
+
     
 
     public function __construct()
@@ -221,6 +226,18 @@ class Books
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTakeBook(): ?bool
+    {
+        return $this->takeBook;
+    }
+
+    public function setTakeBook(?bool $takeBook): self
+    {
+        $this->takeBook = $takeBook;
 
         return $this;
     }
