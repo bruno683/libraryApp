@@ -139,7 +139,7 @@ class BooksController extends AbstractController
 
 
     #[Route('/{id}/returnback', name: 'books_return', methods: ['GET','POST'])]
-    public function returnBook(Request $request, Books $books)
+    public function returnBook(Request $request, Books $books): Response
     {
         $form = $this->createForm(ReturnBookType::class, $books);
         $form->handleRequest($request);
@@ -158,5 +158,10 @@ class BooksController extends AbstractController
             'form'=> $form->createView(),
             'books'=> $books
         ]);
+    }
+
+    public function confirmTakeBook(Request $request, Books $books) 
+    {        
+         //code
     }
 }
