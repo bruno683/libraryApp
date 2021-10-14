@@ -1,3 +1,14 @@
+{% extends "base.html.twig" %}
+
 {% block body %}
-{{ include('rent/_form.html.twig', {'button_label': 'Modifier'}) }}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            
+                {{ include('rent/_form.html.twig', {'button_label': 'Confirmer le retour'}) }}
+            
+        </div>
+    </div>
+</div>
+
 {% endblock %}

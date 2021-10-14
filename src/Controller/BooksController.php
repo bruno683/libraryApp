@@ -27,6 +27,20 @@ class BooksController extends AbstractController
         ]);
     }
 
+    #[Route('/rentedbooks', name: 'books_rented', methods: ['GET'])]
+    public function rentedBooksList(BooksRepository $booksRepo): Response
+    {
+        $rentedBooks = $booksRepo->findBy(
+            [
+                'isAvailable' => false,
+                'takeBook' => false
+            ]
+            );
+            return $this->render('books/rented.html.twig', [
+               'rentedBooks' => $rentedBooks
+            ]);
+    }
+
     #[Route('/new', name: 'books_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
@@ -125,9 +139,15 @@ class BooksController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $books->setIsAvailable(false)
+                ->setGetAt(new DateTime())
+                ->setGetBackLimit( new DateTime('3 days'))
                 ->setUser($user);
+               
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
+        }
+        if ($books->setTakeBook(false) && $books->getGetBackLimit()){
+            $books->setIsAvailable(true);
         }
 
         return $this->render('rent/rentBooks.html.twig', [
@@ -159,10 +179,29 @@ class BooksController extends AbstractController
         ]);
     }
 
-    public function confirmTakeBook(Request $request, Books $books) 
+    #[Route('/{id}/confirmTake', name: 'books_confirm', methods: ['GET','POST'])]
+    public function confirmTakeBook(Request $request, Books $books): Response 
     {        
-         $form = $this->createForm(TakeBookType::class);
+         $form = $this->createForm(TakeBookType::class, $books);
          $form->handleRequest($request);
+         $user = $this->getUser();
+
+         if ($form->isSubmitted() && $form->isValid()) {
+             if ( $books->getTakeBook()) {
+                 $books->setGetBackAt(new DateTime())
+                 ->setGetBackLimit(new DateTime('3 weeks'))
+                 ->setUser($user);
+             }
+
+             $this->getDoctrine()->getManager()->flush();
+             return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
+         }
+         
+         return $this->render('confirmTake/confirmTake.html.twig', [
+             'form'=> $form->createView(),
+             'books'=> $books
+         ]);
+
          
     }
 }

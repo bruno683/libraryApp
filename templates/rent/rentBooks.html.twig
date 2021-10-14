@@ -1,6 +1,17 @@
-
-
-
+{% extends "base.html.twig" %}
 {% block body %}
-{{ include('rent/_form.html.twig', {'button_label': 'Réserver le livre'}) }}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            
+                {{ include('rent/_form.html.twig', {'button_label': 'Réserver le livre'}) }}
+
+                {% if is_granted('ROLE_EMPLOYEE') %}
+                    {{ include('takeBook/_form.html.twig', {'button_label': 'Confirmer le retrait'}) }}
+                    
+                {% endif %}
+            
+        </div>
+    </div>
+</div>
 {% endblock %}

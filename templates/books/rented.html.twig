@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{%  block body %}
+<h1>Listes des locations à confirmer</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-8 col-lg-12">
+            <ul>
+                {%  for book in rentedBooks %}
+                <li>{{book.title}}. Réservé le {{ book.getAt|date("m/d/Y") }}, à retirer avant le {{book.getbacklimit|date("m/d/Y") }} </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

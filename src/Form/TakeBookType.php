@@ -20,6 +20,13 @@ class TakeBookType extends AbstractType
             ->add('author', TextType::class, [
                 'label'=>'auteur'
             ])
+            ->add('takeBook', ChoiceType::class, [
+                'label'=> 'Livre récupéré :',
+                'choices' => [
+                    'oui' => true,
+                    'non' => false,
+                ]
+            ])
             
         ;
     }

@@ -47,9 +47,6 @@ class UserType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
             ])
-            ->add('isValid', ChoiceType::class, [
-                'label' => 'Inscription confirmée'
-            ])
         ;
     }
 

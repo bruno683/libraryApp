@@ -44,6 +44,15 @@
                           <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                           </li>
+                          {% if is_granted('ROLE_EMPLOYEE') %}
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ path('books_rented') }}">Voir les locations en cours</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ path('user_index')}}">Liste des utilisateurs</a>
+                            </li>
+                          {% endif %}
+                          
                         </ul>
                         </div> 
                         <ul class="nav-bar ms-md-auto">
