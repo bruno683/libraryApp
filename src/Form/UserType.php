@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Books;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -45,7 +47,9 @@ class UserType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
             ])
-            ->add('isValid', ChoiceType::class);
+            ->add('isValid', ChoiceType::class, [
+                'label' => 'Inscription confirmée'
+            ])
         ;
     }
 

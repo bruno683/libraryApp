@@ -7,6 +7,7 @@ use App\Entity\Images;
 use App\Form\BooksType;
 use App\Form\RentBookType;
 use App\Form\ReturnBookType;
+use App\Form\TakeBookType;
 use App\Repository\BooksRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -124,8 +125,6 @@ class BooksController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $books->setIsAvailable(false)
-                ->setGetAt(new DateTime())
-                ->setGetBackLimit(new DateTime("3 weeks"))
                 ->setUser($user);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
@@ -162,6 +161,8 @@ class BooksController extends AbstractController
 
     public function confirmTakeBook(Request $request, Books $books) 
     {        
-         //code
+         $form = $this->createForm(TakeBookType::class);
+         $form->handleRequest($request);
+         
     }
 }
