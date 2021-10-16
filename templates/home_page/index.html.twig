@@ -35,10 +35,7 @@
                         {% if book.isavailable %}
                           <a href="{{ path('books_rent', {'id' : book.id}) }}"><button class="btn btn-primary m-2">Emprunter le livre</button></a>
                         {% endif %}  
-                        {% if not book.isavailable and is_granted('ROLE_EMPLOYEE') %}
-                        <a href="{{ path('books_return', {'id' : book.id}) }}"><button class="btn btn-success m-2">rendre le livre disponible</button></a>
-                          
-                        {% endif %}                       
+                                            
                       </div>
                     </div>
                   </div>

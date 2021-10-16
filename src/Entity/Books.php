@@ -35,7 +35,7 @@ class Books
     private $author;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":true})
      */
     private $isAvailable;
 

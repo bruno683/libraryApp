@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Books{% endblock %}
+{% block title %}Ajouter un livre{% endblock %}
 
 {% block body %}
-    <h1>Create new Books</h1>
-
-    {{ include('books/_form.html.twig') }}
-
-    <a href="{{ path('books_index') }}">back to list</a>
+    <h1>Ajouter un livre</h1>
+    <div class="container col-sm-8 col-md-10">
+        <div class="row position-relative">
+            <div class="card shadow-lg pb-2">
+                 {{ include('books/_form.html.twig', {'button_label' : 'Sauvegarder'}) }}                             
+            </div>              
+                <a href="{{ path('books_index') }}" >
+                    <button class="btn btn-success mt-4 mx-0">Revenir à la liste</button>
+                </a>       
+        </div>       
+    </div>   
 {% endblock %}

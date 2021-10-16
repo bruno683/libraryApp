@@ -12,7 +12,8 @@
                 {% endfor %}
 
                 {% for book in booksToReturn %}
-                {{book.title}}. Retirer le {{ book.getAt|date("m/d/Y") }} par {{ book.user.lastName}} {{ book.user.firstName }} , à rendre avant le {{book.getbacklimit|date("m/d/Y") }}
+                {{book.title}}. Retirer le {{ book.getAt|date("m/d/Y") }} par {{ book.user.lastName}} {{ book.user.firstName }} , à rendre avant le {{book.getbacklimit|date("m/d/Y") }} <a href="{{ path('books_return', {'id' : book.id}) }}"><button class="btn btn-success m-2">Confirmer le retour</button></a>  
+                
                 {% endfor %}
             </ul>
             {# {{book.title}}. Retirer le {{ book.getAt|date("m/d/Y") }} par {{ book.user.lastName}} {{ book.user.firstName }} , à rendre avant le {{book.getbacklimit|date("m/d/Y") }}#}

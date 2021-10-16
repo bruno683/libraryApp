@@ -179,7 +179,7 @@ class BooksController extends AbstractController
                 ->getUser();
 
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('home_page', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('books_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('rent/returnBack.html.twig', [
             'form'=> $form->createView(),

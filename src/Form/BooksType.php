@@ -24,8 +24,9 @@ class BooksType extends AbstractType
             ])
             ->add('description', TextareaType::class)
             ->add('author', TextType::class, [
-                'label'=>'Auteur'
-            ])
+                'label' => 'auteur'
+            ]
+            )
             ->add('isAvailable', ChoiceType::class, [
                 'label'=>'Disponible',
                 'choices'=> array(
@@ -34,18 +35,7 @@ class BooksType extends AbstractType
                 ),
                 'required'=>true
             ])
-            ->add('getAt', DateType::class, [
-                'label'=>'Emprunté le :',
-                'widget'=>'choice'
-            ])
-            ->add('getBackAt', DateType::class, [
-                'label'=>'Remis le:',
-                'widget'=>'choice'
-            ])
-            ->add('getBackLimit', DateType::class, [
-                'label' => 'Date limite de retour :',
-                'widget'=>'choice'
-            ])
+            
             ->add('categorie', EntityType::class, [
                 'class'=> Categories::class,
                 'choice_label'=>'name'
