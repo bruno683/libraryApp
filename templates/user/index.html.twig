@@ -1,52 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Liste des utilisteurs{% endblock %}
 
 {% block body %}
     <h1>Liste des utilisateurs</h1>
-<div class="container">
-    <div class="row">
-        <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>LastName</th>
-                <th>FirstName</th>
-                <th>PostalAdress</th>
-                <th>DateOfBirth</th>
-                <th>Inscript</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.postalAdress }}</td>
-                <td>{{ user.dateOfBirth ? user.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.isValid ? 'Yes' : 'No' }}</td>
-                <td class=" d-flex flex-no-wrap justify-content-around">
-                    <a class="m-2" href="{{ path('user_show', {'id': user.id}) }}"><button class="btn btn-success">Voir</button></a> 
-                    {% if not user.isValid %}
-                    <a class="m-2" href="{{ path('app_valid', {'id': user.id}) }}"><button class="btn btn-primary">Valider</button></a>
-                    {% endif %}
-                    
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
+<div class="card shadow-lg ">       
+        <table class="table table-sm table-dark table-stripped">
+            <thead class="table-dark">
+                <tr >
+                    <th>Email</th>
+                    <th>LastName</th>
+                    <th>FirstName</th>
+                    <th>PostalAdress</th>
+                    <th>DateOfBirth</th>
+                    <th>Inscript</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>        
+                    <td>{{ user.email }}</td>                        
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.postalAdress }}</td>
+                    <td>{{ user.dateOfBirth ? user.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ user.isValid ? 'Yes' : 'No' }}</td>
+                    <td >
+                        <a class="m-2" href="{{ path('user_show', {'id': user.id}) }}"><button class="btn btn-success">Voir</button></a> 
+                        {% if not user.isValid %}
+                        <a class="m-2" href="{{ path('app_valid', {'id': user.id}) }}"><button class="btn btn-primary">Valider</button></a>
+                        {% endif %}                           
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 </div>
     
 {% endblock %}

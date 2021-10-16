@@ -69,7 +69,7 @@
         </nav>
             
           
-        <div class="container">
+        <div class="container-fluid">
           {% if app.user and  app.user.isValid %}
             <p>Félicitations {{app.user.firstName}}, vous êtes connecté ! </p>
           {% elseif app.user and not app.user.isValid %}
