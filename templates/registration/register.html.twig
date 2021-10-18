@@ -3,24 +3,31 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">
-            {{ message }}
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="row w-100 col-sm-10 col-md-10 col-lg-12">
+        <div class="card w-100 shadow rounded cil-sm-8 col-md-8 col-lg-10">
+            <h1>Créer un compte</h1>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.lastName) }}
+                {{ form_row(registrationForm.firstName) }}
+                {{ form_row(registrationForm.postalAdress) }}
+                {{ form_row(registrationForm.dateOfBirth) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+        
+                <button type="submit" class="btn btn-success m-5">Register</button>
+            {{ form_end(registrationForm) }}
         </div>
-    {% endfor %}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.postalAdress) }}
-        {{ form_row(registrationForm.dateOfBirth) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn btn-success">Register</button>
-    {{ form_end(registrationForm) }}
+    </div>
+</div>
+   
 {% endblock %}
