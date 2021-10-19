@@ -27,7 +27,7 @@
                                 <th>Couverture</th>
                                 <td>
                                     {% for image in book.img %}
-                                     <img src="{{ asset( '/uploads/' ~ image.name) }}" alt="couverture du livre" >
+                                     <img src="{{ asset( '/uploads/' ~ image.name) }}"  >
                                     {% endfor %}   
                                 </td>
                             </tr>
