@@ -44,7 +44,7 @@ class BooksType extends AbstractType
             ->add('img', FileType::class, [
                 'label'=>false,
                 'required'=>true,
-                'mapped'=> true,
+                'mapped'=> false,
                 'multiple'=>true
             ])
         ;
