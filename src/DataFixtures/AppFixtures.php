@@ -31,6 +31,7 @@ class AppFixtures extends Fixture
                 ->setFirstName('Bruno')
                 ->setEmail('b.richard@test.com')
                 ->setRoles(['ROLE_EMPLOYEE'])
+                ->setIsValid(true)
                 ->setPassword($this->passwordHasher->hashPassword(
                     $employee,
                     'Admin72'
