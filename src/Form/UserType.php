@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -39,6 +40,15 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('roles', CollectionType::class, [
+                'entry_type'=> ChoiceType::class,
+                'entry_options' => [
+                    'choices'=> [
+                        'ROLE_EMPLOYEE'=>'ROLE_EMPLOYEE',
+                        'ROLE_USER'=>'ROLE_USER'
+                    ]
+                ]
+            ])
             ->add('lastName', TextType::class)
             ->add('firstName', TextType::class)
             ->add('postalAdress', TextType::class)
@@ -46,6 +56,13 @@ class UserType extends AbstractType
                 'label'=> 'Date de naissance :',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+            ])
+            ->add('isValid', ChoiceType::class, [
+                'label' => 'Est Enregistré',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false
+                ]
             ])
         ;
     }
