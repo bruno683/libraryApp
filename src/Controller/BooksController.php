@@ -54,6 +54,7 @@ class BooksController extends AbstractController
         $book = new Books();
         $form = $this->createForm(BooksType::class, $book);
         $form->handleRequest($request);
+        $book->setTakeBook(false);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('img')->getData();
@@ -69,6 +70,7 @@ class BooksController extends AbstractController
                 $img->setName($fichier);
                 $book->addImg($img);
             }
+            
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
