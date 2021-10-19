@@ -6,7 +6,7 @@
     
     {% if is_granted('ROLE_REGISTERED') or is_granted('ROLE_EMPLOYEE') %}
        
-    <div class="container row " >
+    <div class="container" >
        <h1>{{title}}</h1> 
         {% include "home_page/_card.html.twig" %}
     

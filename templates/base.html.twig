@@ -68,23 +68,19 @@
                     </div>                                     
             </div>           
         </nav>
-            
-          
-        <div class="container mx-auto ">
-         
-            {% if app.user and  app.user.isValid %}
-            <p>Félicitations {{app.user.firstName}}, vous êtes connecté ! </p>
-          {% elseif app.user and not app.user.isValid %}
-                <div class="alert alert-danger">Votre compte n'à pas été activé par nos employés. Vous ne pouvez pas vous connecter <br> 
-                  <a href=" {{ path('app_logout')}} ">Je comprends</a>
-                </div>
-          {% endif %}
-          
-            {% block body %}{% endblock %}
-         
-          
+        <div class="container mx-auto ">        
+              {% if app.user and  app.user.isValid %}
+              <p>Félicitations {{app.user.firstName}}, vous êtes connecté ! </p>
+            {% elseif app.user and not app.user.isValid %}
+                  <div class="alert alert-danger">Votre compte n'à pas été activé par nos employés. Vous ne pouvez pas vous connecter <br> 
+                    <a href=" {{ path('app_logout')}} ">Je comprends</a>
+                  </div>
+            {% endif %}           
+              {% block body %}{% endblock %}        
         </div>
-        <footer>
+          
+       
+        <footer >
                 <p class="text-center">Copyright(c)-2021|Developpé par Bruno Richard</p>
         </footer>
     </body>
