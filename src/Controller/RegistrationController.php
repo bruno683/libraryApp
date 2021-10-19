@@ -27,8 +27,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setIsValid(true)
-                ->setRoles(['ROLE_EMPLOYEE']);
+            $user->setIsValid(false)
+                ->setRoles(['ROLE_USER']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
